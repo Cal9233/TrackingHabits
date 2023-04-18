@@ -1,8 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcryptjs');
 const User = require('../models/userModel');
-const jwt = require('jsonwebtoken');
-const {generateToken} = require('../utils/generateToken');
+const {generateToken} = require('../utils/tokenHelper');
 
 //@Desc  Register Users
 //@Route  /api/users/
@@ -82,7 +81,7 @@ const getMe = asyncHandler(async(req, res) => {
         name: req.user.name
     }
    res.status(200).json(user);
-})
+});
 
 module.exports = {
     registerUser,
