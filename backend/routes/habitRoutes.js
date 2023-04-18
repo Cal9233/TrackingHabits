@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const {addHabit} = require('../controllers/habitController');
+const {getHabits, createHabit, getSingleHabit, updateSingleHabit, deleteSingleHabit} = require('../controllers/habitController');
 const {protect} = require('../middleware/authMiddleware');
 
-router.post('/add', protect, addHabit);
+router.route('/').get(protect, getHabits).post(protect, createHabit);
+router.route('/:id').get(protect, getSingleHabit).put(protect, updateSingleHabit).delete(protect, deleteSingleHabit);
 
 module.exports = router;

@@ -9,11 +9,13 @@ const habitSchema = mongoose.Schema(
         },
         task: {
             type: String,
-            required: true
+            required: [true, 'Please enter title of Habit']
         },
-        completed: {
-            type: Boolean,
-            required: true
+        status: {
+            type: String,
+            required: true,
+            enum: ['Completed', 'Incomplete'],
+            default: 'Incomplete'
         }
     },
     {

@@ -9,13 +9,13 @@ function Home() {
         <p>Please enter a Habit you want to track</p>
       </section>
 
-      {/* <Link to='/new-habit' className='btn btn-reverse btn-block'>
+      <Link to='/new-habit' className='btn btn-reverse btn-block'>
         <FaQuestionCircle /> Create New Habit
       </Link>
 
       <Link to='/habits' className='btn btn-block'>
         <FaTicketAlt /> View My Habits
-      </Link> */}
+      </Link>
     </>
   )
 }
