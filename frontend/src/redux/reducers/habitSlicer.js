@@ -5,7 +5,11 @@ import { extractErrorMessage } from '../../utilities';
 const initialState = {
   tasks: null,
   task: null,
-  status: null
+  status: null,
+  isError: false,
+  isSuccess: false,
+  message: '',
+  isLoading: false,
 }
 
 // Create new habit
@@ -16,7 +20,9 @@ export const createHabit = createAsyncThunk(
       const token = thunkAPI.getState().auth.user.token
       return await habitService.createHabit(habitData, token)
     } catch (error) {
-      return thunkAPI.rejectWithValue(extractErrorMessage(error))
+      const message = (error.response && error.response.data && error.response.data.message)
+          || error.message || error.toString();
+      return thunkAPI.rejectWithValue(extractErrorMessage(message));
     }
   }
 )
@@ -29,7 +35,9 @@ export const getHabits = createAsyncThunk(
       const token = thunkAPI.getState().auth.user.token
       return await habitService.getHabits(token)
     } catch (error) {
-      return thunkAPI.rejectWithValue(extractErrorMessage(error))
+      const message = (error.response && error.response.data && error.response.data.message)
+          || error.message || error.toString();
+      return thunkAPI.rejectWithValue(extractErrorMessage(message));
     }
   }
 )
@@ -42,7 +50,9 @@ export const getHabit = createAsyncThunk(
       const token = thunkAPI.getState().auth.user.token
       return await habitService.getHabit(habitId, token)
     } catch (error) {
-      return thunkAPI.rejectWithValue(extractErrorMessage(error))
+      const message = (error.response && error.response.data && error.response.data.message)
+          || error.message || error.toString();
+      return thunkAPI.rejectWithValue(extractErrorMessage(message));
     }
   }
 )
@@ -55,7 +65,9 @@ export const closeHabit = createAsyncThunk(
       const token = thunkAPI.getState().auth.user.token
       return await habitService.closeHabit(habitId, token)
     } catch (error) {
-      return thunkAPI.rejectWithValue(extractErrorMessage(error))
+      const message = (error.response && error.response.data && error.response.data.message)
+          || error.message || error.toString();
+      return thunkAPI.rejectWithValue(extractErrorMessage(message));
     }
   }
 )
@@ -67,20 +79,53 @@ export const habitSlice = createSlice({
     builder
       .addCase(getHabits.pending, (state) => {
         state.task = null
+        state.isLoading = true
       })
       .addCase(getHabits.fulfilled, (state, action) => {
         state.tasks = action.payload
+        state.isLoading = false
+        state.isSuccess = true
+      })
+      .addCase(getHabits.rejected, (state, action) => {
+        state.tasks = null
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })
+      .addCase(getHabit.pending, (state) => {
+        state.task = null
+        state.isLoading = true
+      })
+      .addCase(getHabit.rejected, (state, action) => {
+        state.task = null
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
       })
       .addCase(getHabit.fulfilled, (state, action) => {
         state.task = action.payload
+        state.isLoading = false
+        state.isSuccess = true
+      })
+      .addCase(closeHabit.pending, (state, action) => {
+        state.task = null
+        state.isLoading = true
+      })
+      .addCase(closeHabit.rejected, (state, action) => {
+        state.task = null
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
       })
       .addCase(closeHabit.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
         state.task = action.payload
-        state.tasks = state.tasks.map((habit) =>
-          habit._id === action.payload._id ? action.payload : habit
+        state.tasks = state.tasks.map((task) =>
+          task._id === action.payload._id ? action.payload : task
         )
       })
   },
 })
 
-export default habitSlice.reducer
+export default habitSlice.reducer;

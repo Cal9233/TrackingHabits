@@ -10,7 +10,7 @@ const createHabit = async (habitData, token) => {
     },
   }
 
-  const response = await axios.post(API_URL, habitData, config)
+  const response = await axios.post(API_URL + `/${habitData}`, config)
 
   return response.data
 }
@@ -23,7 +23,7 @@ const getHabits = async (token) => {
     },
   }
 
-  const response = await axios.get(API_URL, config)
+  const response = await axios.get(API_URL + '/', config)
 
   return response.data
 }
@@ -36,7 +36,7 @@ const getHabit = async (habitId, token) => {
     },
   }
 
-  const response = await axios.get(API_URL + habitId, config)
+  const response = await axios.get(API_URL + `/${habitId}`, config)
 
   return response.data
 }
@@ -50,8 +50,8 @@ const closeHabit = async (habitId, token) => {
   }
 
   const response = await axios.put(
-    API_URL + habitId,
-    { status: 'closed' },
+    API_URL + `/${habitId}`,
+    { status: 'Complete' },
     config
   )
 

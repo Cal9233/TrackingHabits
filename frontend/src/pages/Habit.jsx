@@ -28,7 +28,7 @@ Modal.setAppElement('#root')
 const Habit = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [noteText, setNoteText] = useState('')
-  const { task } = useSelector((state) => state.habits)
+  const { task, isLoading, isError, isSuccess, message } = useSelector((state) => state.habits)
 
   const { notes } = useSelector((state) => state.notes)
 
@@ -68,7 +68,7 @@ const Habit = () => {
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  if (!task) {
+  if (isLoading) {
     return <Spinner />
   }
 

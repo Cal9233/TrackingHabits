@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { createHabit } from '../redux/reducers/habitSlicer';
 import BackButton from '../components/BackButton';
 
-function NewHabit() {
+const NewHabit = () => {
   const { user } = useSelector((state) => state.auth)
 
   const [name] = useState(user.name);
