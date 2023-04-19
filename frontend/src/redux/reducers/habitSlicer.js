@@ -131,4 +131,5 @@ export const habitSlice = createSlice({
   },
 })
 
+export const {reset} = habitSlice.actions;
 export default habitSlice.reducer;

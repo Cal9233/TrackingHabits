@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { createHabit } from '../redux/reducers/habitSlicer';
+import { createHabit, reset } from '../redux/reducers/habitSlicer';
 import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 

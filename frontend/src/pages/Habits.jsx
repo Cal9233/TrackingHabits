@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getHabits, reset } from '../redux/reducers/habitSlicer';
+import { getHabits } from '../redux/reducers/habitSlicer';
 import Spinner from '../components/Spinner';
 import BackButton from '../components/BackButton';
 import { toast } from 'react-toastify';
