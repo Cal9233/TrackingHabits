@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = '/api/habits'
+const API_URL = '/api/habits/'
 
 // Get habit notes
 const getNotes = async (habitId, token) => {
@@ -10,7 +10,7 @@ const getNotes = async (habitId, token) => {
     },
   }
 
-  const response = await axios.get(API_URL + `/${habitId}` + '/notes', config)
+  const response = await axios.get(API_URL, habitId, '/notes', config)
 
   return response.data
 }
@@ -24,7 +24,7 @@ const createNote = async (noteText, habitId, token) => {
   }
 
   const response = await axios.post(
-    API_URL + `/${habitId}` + '/notes',
+    API_URL, habitId, '/notes',
     {
       text: noteText,
     },

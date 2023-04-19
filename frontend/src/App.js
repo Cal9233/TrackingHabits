@@ -20,15 +20,15 @@ function App() {
           <Route path='/' element={<Home />}/>
             <Route path='/login' element={<Login />}/>
             <Route path='/register' element={<Register />}/>
-            {/* <Route path='/new-habit' element={<PrivateRoute />}> */}
+            <Route path='/new-habit' element={<PrivateRoute />}>
               <Route path='/new-habit' element={<NewHabit />}/>
-            {/* </Route> */}
-            {/* <Route path='/habits' element={<PrivateRoute />}> */}
+            </Route>
+            <Route path='/habits' element={<PrivateRoute />}>
               <Route path='/habits' element={<Habits />}/>
-            {/* </Route> */}
-            {/* <Route path='/habit' element={<PrivateRoute />}> */}
+            </Route>
+            <Route path='/habit' element={<PrivateRoute />}>
               <Route path='/habit' element={<Habit />}/>
-            {/* </Route> */}
+            </Route>
           </Routes>
         </div>
       </Router>

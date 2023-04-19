@@ -3,8 +3,8 @@ import habitService from '../services/habitService';
 import { extractErrorMessage } from '../../utilities';
 
 const initialState = {
-  tasks: null,
-  task: null,
+  tasks: [],
+  task: {},
   status: null,
   isError: false,
   isSuccess: false,

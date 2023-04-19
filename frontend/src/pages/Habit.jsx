@@ -77,9 +77,9 @@ const Habit = () => {
       <header className='habit-header'>
         <BackButton />
         <h2>
-          Habit ID: {task._id}
-          <span className={`status status-${task.status}`}>
-            {task.status}
+          Habit ID: {task._id ? task._id : ''}
+          <span className={`status status-${task.status ? task.status : ''}`}>
+            {task.status ? task.status : ''}
           </span>
         </h2>
         <h3>

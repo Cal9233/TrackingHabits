@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { createHabit, reset } from '../redux/reducers/habitSlicer';
+import { createHabit } from '../redux/reducers/habitSlicer';
 import BackButton from '../components/BackButton';
-import Spinner from '../components/Spinner';
 
 const NewHabit = () => {
   const { user } = useSelector((state) => state.auth)
@@ -14,21 +13,8 @@ const NewHabit = () => {
   const [task, setTask] = useState('');
   const [status, setStatus] = useState('Incomplete');
 
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const {isLoading, isError, isSuccess, message} = useSelector((state) => state.habits);
-
-  useEffect(() => {
-      if(isError){
-          console.log(`error: ${message}`)
-          toast.error(message)
-      }
-      if(isSuccess){
-          dispatch(reset());
-          navigate('/habits')
-      }
-      dispatch(reset());
-  }, [dispatch, isError, isSuccess, navigate, message]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -39,10 +25,6 @@ const NewHabit = () => {
         toast.success('New habit created!')
       })
       .catch(toast.error)
-  }
-
-  if(isLoading){
-    return <Spinner/>
   }
 
   return (

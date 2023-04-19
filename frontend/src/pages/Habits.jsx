@@ -7,28 +7,29 @@ import { toast } from 'react-toastify';
 import HabitItem from '../components/HabitItem';
 
 const Habits = () => {
-  const { tasks, isLoading, isError, isSuccess, message } = useSelector((state) => state.habits)
-
+  const { task, tasks, isLoading, isError, isSuccess, message } = useSelector((state) => state.habits)
+  
   const dispatch = useDispatch()
 
   useEffect(() => {
     if(isError){
-      toast.error(message);
+      console.log(`error: ${message}`)
+      toast.error(message)
     }
-    if(isSuccess || tasks){
-      toast.done('Current tasks');
-      dispatch(getHabits())
-    }
-  }, [dispatch, isSuccess, isError, message, tasks])
+    dispatch(getHabits())
+  }, [dispatch])
 
   if (isLoading) {
     return <Spinner />
   }
 
+  console.log(`task: ${JSON.stringify(task)}`);
+  console.log(`tasks: ${JSON.stringify(tasks)}`);
+
   return (
     <>
       <BackButton />
-      {tasks && tasks.length > 0  ? (
+      {tasks && tasks.length > 0 ? (
         <>
         <h1>Habits</h1>
           <div className='habits'>
