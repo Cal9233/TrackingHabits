@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import NewHabit from './pages/NewHabit';
 import PrivateRoute from './components/PrivateRoute';
 import Habits from './pages/Habits';
+import Habit from './pages/Habit';
 
 function App() {
   return (
@@ -19,12 +20,15 @@ function App() {
           <Route path='/' element={<Home />}/>
             <Route path='/login' element={<Login />}/>
             <Route path='/register' element={<Register />}/>
-            <Route path='/new-habit' element={<PrivateRoute />}>
+            {/* <Route path='/new-habit' element={<PrivateRoute />}> */}
               <Route path='/new-habit' element={<NewHabit />}/>
-            </Route>
-            <Route path='/habits' element={<PrivateRoute />}>
+            {/* </Route> */}
+            {/* <Route path='/habits' element={<PrivateRoute />}> */}
               <Route path='/habits' element={<Habits />}/>
-            </Route>
+            {/* </Route> */}
+            {/* <Route path='/habit' element={<PrivateRoute />}> */}
+              <Route path='/habit' element={<Habit />}/>
+            {/* </Route> */}
           </Routes>
         </div>
       </Router>

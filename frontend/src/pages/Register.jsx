@@ -14,19 +14,19 @@ const Register = () => {
         password2: ''
     });
     const {name, email, password, password2} = formData;
-    const state = useSelector((state) => state.auth);
+    const {user, isError, isSuccess, message, isLoading} = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(state.isError){
-            toast.error(state.message);
+        if(isError){
+            toast.error(message);
         }
-        if(state.isSuccess || state.user){
+        if(isSuccess || user){
             navigate('/');
         }
         dispatch(reset())
-    }, [state.isError, state.isSuccess, state.user, state.message]);
+    }, [isError, isSuccess, user, message]);
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -49,13 +49,13 @@ const Register = () => {
             dispatch(register(userData))
                 .unwrap()
                 .then((user) => {
-                    toast.success(`Registered new user = ${user.name}`);
+                    toast.success(`Registered ${user.name}, Welcome!`);
                     navigate('/');
                 })
         }
     };
 
-    if(state.isLoading){
+    if(isLoading){
         return <Spinner />
     };
     
@@ -63,7 +63,7 @@ const Register = () => {
     <>
       <section className='heading'>
         <h1>
-          <FaUser /> Register {state.user}
+          <FaUser /> Register
         </h1>
         <p>Please create an account</p>
       </section>
