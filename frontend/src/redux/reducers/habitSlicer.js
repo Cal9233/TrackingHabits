@@ -75,6 +75,9 @@ export const closeHabit = createAsyncThunk(
 export const habitSlice = createSlice({
   name: 'habits',
   initialState,
+  reducers: {
+    reset: (state) => initialState
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getHabits.pending, (state) => {
