@@ -14,7 +14,7 @@ const habitSchema = mongoose.Schema(
         status: {
             type: String,
             required: true,
-            enum: ['Completed', 'Incomplete'],
+            enum: ['Complete', 'Incomplete'],
             default: 'Incomplete'
         }
     },

@@ -46,7 +46,7 @@ const Login = () => {
       dispatch(login(userData))
         .unwrap()
         .then((user) => {
-          toast.success(`Welcome ${user.email}`);
+          toast.success(`Welcome ${user.name}`);
           navigate('/');
         })
     }
