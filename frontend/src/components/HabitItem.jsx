@@ -1,14 +1,22 @@
 import { Link } from 'react-router-dom'
 
 const HabitItem = ({ habit }) => {
-  console.log(`habit1: ${habit}`);
-  console.log(`habit2: ${habit}`);
+
+  const date = (habit) => {
+    try {
+      let newDate = new Date(habit.createdAt).toLocaleString('en-US');
+      return newDate;
+    } catch(e) {
+      console.log(`Error: ${e}`);
+    }
+  };
+  
   return (
     <div className='habit'>
-      <div>{new Date(habit.createdAt).toLocaleString('en-US')}</div>
-      <div>{habit.product}</div>
+      <div>{date(habit)}</div>
+      <div>{habit.task}</div>
       <div className={`status status-${habit.status}`}>{habit.status}</div>
-      <Link to={`/habits/${habit._id}`} className='btn btn-reverse btn-sm'>
+      <Link to={`/habit/${habit._id}`} className='btn btn-reverse btn-sm'>
         View
       </Link>
     </div>

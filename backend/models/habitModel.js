@@ -19,7 +19,7 @@ const habitSchema = mongoose.Schema(
         }
     },
     {
-        timestamp: true,
+        timestamps: true
     }
 );
 

@@ -21,6 +21,7 @@ const createHabit = asyncHandler(async(req, res) => {
         status,
         user: req.user.id
     })
+    console.log(habit.createdAt);
     res.status(201).json(habit);
 });
 

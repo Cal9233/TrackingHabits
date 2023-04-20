@@ -36,7 +36,7 @@ const getHabit = async (habitId, token) => {
     },
   }
 
-  const response = await axios.get(API_URL, habitId, config)
+  const response = await axios.get(API_URL + habitId, config)
 
   return response.data
 }
@@ -50,8 +50,7 @@ const closeHabit = async (habitId, token) => {
   }
 
   const response = await axios.put(
-    API_URL,
-    habitId,
+    API_URL + habitId,
     { status: 'Complete' },
     config
   )

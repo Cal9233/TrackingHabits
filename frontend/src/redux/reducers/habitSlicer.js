@@ -81,7 +81,6 @@ export const habitSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getHabits.pending, (state) => {
-        state.task = null
         state.isLoading = true
       })
       .addCase(getHabits.fulfilled, (state, action) => {
@@ -90,17 +89,14 @@ export const habitSlice = createSlice({
         state.isSuccess = true
       })
       .addCase(getHabits.rejected, (state, action) => {
-        state.tasks = null
         state.isLoading = false
         state.isError = true
         state.message = action.payload
       })
       .addCase(getHabit.pending, (state) => {
-        state.task = null
         state.isLoading = true
       })
       .addCase(getHabit.rejected, (state, action) => {
-        state.task = null
         state.isLoading = false
         state.isError = true
         state.message = action.payload
@@ -110,22 +106,12 @@ export const habitSlice = createSlice({
         state.isLoading = false
         state.isSuccess = true
       })
-      .addCase(closeHabit.pending, (state, action) => {
-        state.task = null
-        state.isLoading = true
-      })
-      .addCase(closeHabit.rejected, (state, action) => {
-        state.task = null
-        state.isLoading = false
-        state.isError = true
-        state.message = action.payload
-      })
       .addCase(closeHabit.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
         state.task = action.payload
         state.tasks = state.tasks.map((task) =>
-          task._id === action.payload._id ? action.payload : task
+          task._id === action.payload._id ? (task.status = 'Incomplete') : task
         )
       })
   },

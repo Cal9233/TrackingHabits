@@ -208,7 +208,7 @@ h3 {
   font-size: 1.3rem;
 }
 
-.habits,
+.habit,
 .habit-headings {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -233,18 +233,12 @@ h3 {
   padding: 0 20px;
   justify-self: center;
   border-radius: 10px;
-  font-size: 16px;
+  font-size: 12px;
   text-align: center;
 }
 
-.status-new {
-  background-color: green;
-  color: #fff;
-  border-radius: 10px;
-}
-
 .status-Complete {
-  background-color: steelblue;
+  background-color: green;
   color: #fff;
   border-radius: 10px;
 }

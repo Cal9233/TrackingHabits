@@ -13,7 +13,6 @@ const Habits = () => {
 
   useEffect(() => {
     if(isError){
-      console.log(`error: ${message}`)
       toast.error(message)
     }
     dispatch(getHabits())
