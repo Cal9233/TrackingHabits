@@ -26,8 +26,8 @@ function App() {
             <Route path='/habits' element={<PrivateRoute />}>
               <Route path='/habits' element={<Habits />}/>
             </Route>
-            <Route path='/habit' element={<PrivateRoute />}>
-              <Route path='/habit' element={<Habit />}/>
+            <Route path='/habit/:habitId' element={<PrivateRoute />}>
+              <Route path='/habit/:habitId' element={<Habit />}/>
             </Route>
           </Routes>
         </div>

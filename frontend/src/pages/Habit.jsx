@@ -37,9 +37,14 @@ const Habit = () => {
   const { habitId } = useParams()
 
   useEffect(() => {
-    dispatch(getHabit(habitId)).unwrap().catch(toast.error)
-    dispatch(getNotes(habitId)).unwrap().catch(toast.error)
-  }, [habitId, dispatch])
+    if(isError){
+      toast.error(message);
+    }
+    // dispatch(getHabit(habitId)).unwrap().catch(toast.error)
+    // dispatch(getNotes(habitId)).unwrap().catch(toast.error)
+    dispatch(getHabit(habitId))
+    //eslint-disable-next-line
+  }, [habitId, isError, message])
 
   // Close habit
   const onHabitClose = () => {
@@ -87,7 +92,7 @@ const Habit = () => {
         </h3>
         <hr />
         <div className='habit-desc'>
-          <h3>Description of Issue</h3>
+          <h3>Description of Habit</h3>
           <p>{task.task}</p>
         </div>
         <h2>Notes</h2>
@@ -128,11 +133,11 @@ const Habit = () => {
         </form>
       </Modal>
 
-      {notes ? (
+      {/* {notes ? (
         notes.map((note) => <NoteItem key={note._id} note={note} />)
       ) : (
         <Spinner />
-      )}
+      )} */}
 
       {task.status !== 'Complete' && (
         <button onClick={onHabitClose} className='btn btn-block btn-danger'>
