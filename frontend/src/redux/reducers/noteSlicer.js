@@ -3,7 +3,7 @@ import noteService from '../services/noteService';
 import { extractErrorMessage } from '../../utilities';
 
 const initialState = {
-  notes: null,
+  notes: [],
   isError: false,
   isSuccess: false,
   message: '',
@@ -43,10 +43,12 @@ export const createNote = createAsyncThunk(
 export const noteSlicer = createSlice({
   name: 'note',
   initialState,
+  reducers: {
+    reset: (state) => initialState
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getNotes.pending, (state) => {
-        state.notes = null
         state.isLoading = true
       })
       .addCase(getNotes.fulfilled, (state, action) => {
@@ -55,21 +57,20 @@ export const noteSlicer = createSlice({
         state.isSuccess = true
       })
       .addCase(getNotes.rejected, (state, action) => {
-        state.notes = null
         state.isLoading = false
         state.isError = true
         state.isSuccess = false
         state.message = action.payload
       })
       .addCase(createNote.pending, (state) => {
-        state.notes = null
         state.isLoading = true
       })
       .addCase(createNote.fulfilled, (state, action) => {
         state.notes.push(action.payload)
+        state.isLoading = false
+        state.isSuccess = true
       })
       .addCase(createNote.rejected, (state, action) => {
-        state.notes = null
         state.isLoading = false
         state.isError = true
         state.message = action.payload
@@ -77,4 +78,5 @@ export const noteSlicer = createSlice({
   },
 })
 
+export const {reset} = noteSlicer.actions
 export default noteSlicer.reducer

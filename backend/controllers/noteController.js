@@ -2,16 +2,24 @@ const asyncHandler = require('express-async-handler');
 
 const Note = require('../models/noteModel');
 const Habit = require('../models/habitModel');
+const User = require('../models/userModel');
 
 // @desc    Get notes for a habit
 // @route   GET /api/habits/:habitId/notes
 // @access  Private
-const getNotes = asyncHandler(async (req, res) => {
-  const habit = await Habit.findById(req.params.habitId)
+const getNote = asyncHandler(async (req, res) => {
+  //check if user exists
+  const user = await User.findById(req.user.id);
+  if(!user){
+    res.status(401);
+    throw new Error('User not found');
+  }
 
+  const habit = await Habit.findById(req.params.habitId)
+  //check if habit belongs to user
   if (habit.user.toString() !== req.user.id) {
     res.status(401)
-    throw new Error('User not authorized')
+    throw new Error('User not authorized');
   }
 
   const notes = await Note.find({ habit: req.params.habitId })
@@ -41,6 +49,6 @@ const addNote = asyncHandler(async (req, res) => {
 })
 
 module.exports = {
-  getNotes,
+  getNote,
   addNote,
 }

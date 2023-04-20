@@ -28,21 +28,17 @@ Modal.setAppElement('#root')
 const Habit = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [noteText, setNoteText] = useState('')
-  const { task, isLoading, isError, isSuccess, message } = useSelector((state) => state.habits)
+  const { task, isLoading, isError, message } = useSelector((state) => state.habits)
 
-  const { notes } = useSelector((state) => state.notes)
+  const { notes, isLoading: notesIsLoading, isSuccess } = useSelector((state) => state.notes)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { habitId } = useParams()
 
   useEffect(() => {
-    if(isError){
-      toast.error(message);
-    }
-    // dispatch(getHabit(habitId)).unwrap().catch(toast.error)
-    // dispatch(getNotes(habitId)).unwrap().catch(toast.error)
-    dispatch(getHabit(habitId))
+    dispatch(getHabit(habitId)).unwrap().catch(toast.error)
+    dispatch(getNotes(habitId)).unwrap().catch(toast.error)
     //eslint-disable-next-line
   }, [habitId, isError, message])
 
@@ -60,20 +56,27 @@ const Habit = () => {
   // Create note submit
   const onNoteSubmit = (e) => {
     e.preventDefault()
-    dispatch(createNote({ noteText, habitId }))
+    try {
+      dispatch(createNote({ noteText, habitId }))
       .unwrap()
       .then(() => {
+        toast.success(isSuccess);
         setNoteText('')
         closeModal()
       })
       .catch(toast.error)
+    } catch(e) {
+      console.log(`error: ${e}`);
+      toast.error(`error: ${e}`);
+    }
+    
   }
 
   // Open/close modal
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  if (isLoading) {
+  if (isLoading || notesIsLoading) {
     return <Spinner />
   }
 
@@ -133,11 +136,11 @@ const Habit = () => {
         </form>
       </Modal>
 
-      {/* {notes ? (
+      {notes ? (
         notes.map((note) => <NoteItem key={note._id} note={note} />)
       ) : (
         <Spinner />
-      )} */}
+      )}
 
       {task.status !== 'Complete' && (
         <button onClick={onHabitClose} className='btn btn-block btn-danger'>
