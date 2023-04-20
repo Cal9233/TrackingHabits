@@ -16,9 +16,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-app.get('/', (req, res) => {
-    res.status(200).json({message: 'Hello'});
-});
 app.use('/api/users', users);
 app.use('/api/habits', habits);
 
